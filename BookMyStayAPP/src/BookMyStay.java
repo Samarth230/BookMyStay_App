@@ -1,44 +1,55 @@
-class Room {
-    int roomNumber;
-    double price;
+import java.util.Map;
+import java.util.HashMap;
 
-    Room(int roomNumber, double price) {
-        this.roomNumber = roomNumber;
-        this.price = price;
+public class RoomInventory {
+
+    private Map<String, Integer> roomAvailability;
+
+    public RoomInventory() {
+        roomAvailability = new HashMap<>();
+        initializeInventory();
     }
 
-    void display() {
-        System.out.println("Room Number: " + roomNumber);
-        System.out.println("Price: " + price);
+    private void initializeInventory() {
+        roomAvailability.put("Single Room", 5);
+        roomAvailability.put("Double Room", 3);
+        roomAvailability.put("Suite Room", 2);
     }
-}
 
-class SingleRoom extends Room {
-    SingleRoom(int roomNumber) {
-        super(roomNumber, 1000);
+    public Map<String, Integer> getRoomAvailability() {
+        return roomAvailability;
     }
-}
 
-class DoubleRoom extends Room {
-    DoubleRoom(int roomNumber) {
-        super(roomNumber, 2000);
+    public void updateAvailability(String roomType, int count) {
+        roomAvailability.put(roomType, count);
     }
-}
 
-class DeluxeRoom extends Room {
-    DeluxeRoom(int roomNumber) {
-        super(roomNumber, 3000);
-    }
-}
-
-public class UseCase1HotelBookingApp {
     public static void main(String[] args) {
-        SingleRoom single = new SingleRoom(101);
-        DoubleRoom doubleRoom = new DoubleRoom(201);
-        DeluxeRoom deluxe = new DeluxeRoom(301);
+        RoomInventory inventory = new RoomInventory();
+        printRoomInventoryStatus(inventory);
+    }
 
-        single.display();
-        doubleRoom.display();
-        deluxe.display();
+    public static void printRoomInventoryStatus(RoomInventory inventory) {
+        System.out.println("Hotel Room Inventory Status\n");
+
+        System.out.println("Single Room:");
+        System.out.println("Beds: 1");
+        System.out.println("Size: 250 sqft");
+        System.out.println("Price per night: 1500.0");
+        System.out.println("Available Rooms: " + inventory.getRoomAvailability().get("Single Room"));
+        System.out.println();
+
+        System.out.println("Double Room:");
+        System.out.println("Beds: 2");
+        System.out.println("Size: 400 sqft");
+        System.out.println("Price per night: 2500.0");
+        System.out.println("Available Rooms: " + inventory.getRoomAvailability().get("Double Room"));
+        System.out.println();
+
+        System.out.println("Suite Room:");
+        System.out.println("Beds: 3");
+        System.out.println("Size: 750 sqft");
+        System.out.println("Price per night: 5000.0");
+        System.out.println("Available Rooms: " + inventory.getRoomAvailability().get("Suite Room"));
     }
 }
